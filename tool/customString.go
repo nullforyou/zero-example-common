@@ -1,10 +1,9 @@
-package custom_string
+package tool
 
 import (
 	"crypto/md5"
 	"fmt"
 	"github.com/golang-jwt/jwt/v4"
-	"go-common/ctxdata"
 	"time"
 )
 
@@ -20,7 +19,7 @@ func GetJwtToken(secretKey string, seconds, userId int64) (string, error) {
 	claims := make(jwt.MapClaims)
 	claims["exp"] = iat + seconds
 	claims["iat"] = iat
-	claims[ctxdata.CtxKeyJwtUserId] = userId
+	claims[CtxKeyJwtUserId] = userId
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
 	return token.SignedString([]byte(secretKey))
